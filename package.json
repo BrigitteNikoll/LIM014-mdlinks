@@ -1,4 +1,40 @@
 {
-  "name": "md-links",
-  "version": "0.1.0"
+  "name": "@brigittenikoll/md-links",
+  "version": "0.1.0",
+  "description": "* [1. Preámbulo](#1-preámbulo)\r * [2. Resumen del proyecto](#2-resumen-del-proyecto)\r * [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)\r * [4. Consideraciones generales](#4-consideraciones-generales)\r * [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)\r * [6. Entregables](#6-entregables)\r * [7. Hacker edition](#7-hacker-edition)\r * [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)\r * [9. Checklist](#9-checklist)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrigitteNikoll/LIM014-mdlinks.git"
+  },
+  "keywords": [
+    "links",
+    "CLI",
+    "laboratoria",
+    "markdown"
+  ],
+  "author": "Brigitte Nikoll Romero Luna",
+  "license": "MIT ",
+  "bugs": {
+    "url": "https://github.com/BrigitteNikoll/LIM014-mdlinks/issues"
+  },
+  "homepage": "https://github.com/BrigitteNikoll/LIM014-mdlinks#readme",
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.13.8",
+    "babel-jest": "^26.6.3",
+    "editorconfig": "^0.15.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3"
+  }
 }
