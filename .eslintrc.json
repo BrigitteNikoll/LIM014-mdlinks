@@ -14,7 +14,7 @@
     "rules": {
       "semi": ["error", "always"], // Punto y coma obligatorio
       "linebreak-style": ["error", "windows"], // finales de línea para Windows
-      "no-console": "warn"
+      /* "no-console": "warn" //Profundizar */
 
 
     }
