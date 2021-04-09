@@ -29,9 +29,6 @@ const pathAbsolute = (route) => path.isAbsolute(route);
 const relativeToAbsolute = (route) => path.resolve(route);
 //console.log(relativeToAbsolute(relativePath));
 
-
-//2. Usar recursividad, hacer test y subir commit. Si hay más carpetas, iterar sobre el directorio hasta encontrar archivo con extension .md (usar recursividad)
-
 //OPCION 1:
 //Función que verifica si una ruta es un directorio (devuelve un boleano)
 const isDirectory = (route) => fs.statSync(route).isDirectory(); //TESTEADO
@@ -40,7 +37,6 @@ const isDirectory = (route) => fs.statSync(route).isDirectory(); //TESTEADO
 //Leer el directorio (devuelve un array con los RUTA RELATIVA de archivos encontrados dentro del directorio)
 const readDirectory = (route) => fs.readdirSync(route);
 //console.log(readDirectory(directory));
-
 
 //OPCION 2:
 //Función que verifica si una ruta es un archivo (devuelve un boleano)
@@ -54,13 +50,12 @@ const readFile= (route) => {
 };
 //console.log("Mírame: " , readFile(fileMD));
 
-
 //Función que verifica si es un archivo .md (devuelve un buleano)
 const isMarkdown = (route) => path.extname(route) === '.md';
 //console.log("¿Es un archivo con extensión .md?" , isMarkdown(fileMD));
 
 
-//Función que obtiene un array de todas las RUTAS ABSOLUTAS de los archivos encontrados con extensión .md
+//Función que obtiene un array de la ruta de los archivos encontrados que tengan extensión .md (solo si se le pasa una ruta absoluta)
 const getAllFilesMd = (route) => {
   let arrFiles = [];
   if (isFile(route)) {
@@ -68,42 +63,47 @@ const getAllFilesMd = (route) => {
   } else {
     readDirectory(route).forEach((file) => {
       const completePath = path.join(route, file);
-      const recursive = getAllFiles(completePath);
+      const recursive = getAllFilesMd(completePath);
       arrFiles = arrFiles.concat(recursive);
     });
   }
   const mdPath = arrFiles.filter((x) => isMarkdown(x));
   return mdPath;
 };
-//console.log('Estos son los archivos con extensión .md encontrados: ', getAllFilesMd(fileMD));
-//console.log('Estos son los archivos con extensión .md encontrados en el directorio: ', getAllFiles(directory));
+//console.log('Esta es la ruta de los archivos con extensión .md encontrados: ', getAllFilesMd(fileMD));
+//console.log('Esta es la ruta de los archivos con extensión .md encontrados en el directorio: ', getAllFilesMd(directory));
 
- //Función para obtener los links de un archivo con extensión .md
+
+//Función para obtener los links de un archivo con extensión .md (href, text, file)
 const gettingLinks = (route) => {
   let arrayLinks = [];
   const routeAbsolute = relativeToAbsolute(route);
   //console.log("Esta es la ruta absoluta: ", getAllFilesMd(routeAbsolute));
-  getAllFilesMd(routeAbsolute).forEach((file) =>{
-    //console.log("Este es el archivo revisado: " , file);
+getAllFilesMd(routeAbsolute).forEach((file) =>{
+  //console.log("Este es el archivo revisado: " , file);
     const ussingRegularExpresions = /\[(.*)\]\(((?!#).+)\)/gi;
-    const showingLinks = readFile(file).match(ussingRegularExpresions).map((element => {let link = element.split('](')
-    //console.log("link:" , link[1].slice(0,-1));
-    //console.log("texto:" , link[0].slice(1));
-
-        const objet = {
+    //console.log(readFile(file).match(ussingRegularExpresions))
+    const showingLinks = readFile(file).match(ussingRegularExpresions)
+    //console.log("link:" , link[1].slice(0,-1))
+    //console.log("link:" , link[0].slice(1))
+    if(showingLinks != null){
+      showingLinks.map((element) => {let link = element.split('](')
+      const object = {
         href: link[1].slice(0,-1),
         text: link[0].slice(1),
         file: file
       }
-      arrayLinks.push(objet);
-    }))
-    //¿Por qué me sale indefinido en este console.log)
-    //console.log("Estos son los links encontrados en el archivo" , showingLinks);
-  })
-    return arrayLinks;
-  };
+      arrayLinks.push(object);
+    })
+  }
 
-//console.log("Obteniendo links" , gettingLinks(fileMD));
+  //¿Por qué resulta indefinido?
+  //console.log("Estos son los links encontrados en el archivo, showingLinks");
+})
+  return arrayLinks;
+}
+//console.log("Obteniendo links y descomponiéndolos en href, text, file" , gettingLinks(directory));
+
 
 // validar links de array
 const validateLinks = (arrLiknsValidate) => {
@@ -112,7 +112,9 @@ const validateLinks = (arrLiknsValidate) => {
     .catch(() => ({ status: 404, message: 'Esta ruta no existe', ...obj })));
     return Promise.all(arr);
 };
-validateLinks(gettingLinks(fileMD)).then((url) => console.log(url))
+//validateLinks(gettingLinks(fileMD)).then((url) => console.log(url))
+
+
 
  module.exports = {
   readDirectory,
@@ -125,7 +127,9 @@ validateLinks(gettingLinks(fileMD)).then((url) => console.log(url))
   readFile,
   validateLinks,
   getAllFilesMd,
-  gettingLinks
+  gettingLinks,
+
+//¿Por quéeeeeeeeeeee?
 
 }
 
