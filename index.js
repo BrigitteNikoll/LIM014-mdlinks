@@ -3,7 +3,7 @@
 const path = require('path');
 //Importar modulo file system
 const fs = require("fs");
-
+//Importar una librería
 const axios = require('axios');
 
 //Rutas de prueba
@@ -12,10 +12,7 @@ const absolutePath = 'C:\\Users\\Usuario\\LIM014-mdlinks\\index.js';
 const directory = 'C:\\Users\\Usuario\\LIM014-mdlinks\\Probando';
 const fileMD = 'C:\\Users\\Usuario\\LIM014-mdlinks\\Probando\\readme.md';
 
-
 //REORGANIZANDO
-
-//1.Agregar las tres primeras constantes en una función, hacer test y subir un commit
 
 //Función que verifica si la ruta existe (devuelve un boleano)
 const isValidRoute = (route) => fs.existsSync(route);
@@ -55,7 +52,7 @@ const isMarkdown = (route) => path.extname(route) === '.md';
 //console.log("¿Es un archivo con extensión .md?" , isMarkdown(fileMD));
 
 
-//Función que obtiene un array de la ruta de los archivos encontrados que tengan extensión .md (solo si se le pasa una ruta absoluta)
+//Función que obtiene un array de la ruta de los archivos encontrados que tengan extensión .md
 const getAllFilesMd = (route) => {
   let arrFiles = [];
   if (isFile(route)) {
@@ -115,7 +112,6 @@ const validateLinks = (arrLiknsValidate) => {
 //validateLinks(gettingLinks(fileMD)).then((url) => console.log(url))
 
 
-
  module.exports = {
   readDirectory,
   pathAbsolute,
@@ -128,8 +124,6 @@ const validateLinks = (arrLiknsValidate) => {
   validateLinks,
   getAllFilesMd,
   gettingLinks,
-
-//¿Por quéeeeeeeeeeee?
 
 }
 
