@@ -1,4 +1,3 @@
-
 //Importar el modulo path
 const path = require('path');
 //Importar modulo file system
@@ -41,11 +40,15 @@ const isFile = (route) => fs.statSync(route).isFile();
 //console.log(isFile(absolutePath));
 
 //Leer el archivo (devuelve el texto encontrado en el archivo)
-const readFile= (route) => {
-  const read = fs.readFileSync(route, {encoding: "utf-8", flag: "r"}); //Indagar
-  return read;
-};
+const readFile= (route) => fs.readFileSync(route, {encoding: "utf-8"/* , flag: "r" */}); //Indagar
 //console.log("Mírame: " , readFile(fileMD));
+
+/* const readFile= (route) => {
+  const read = fs.readFileSync(route, {encoding: "utf-8" , flag: "r" }); //Indagar
+  return read;
+}; */
+//console.log("Mírame: " , readFile(fileMD));
+
 
 //Función que verifica si es un archivo .md (devuelve un buleano)
 const isMarkdown = (route) => path.extname(route) === '.md';
@@ -106,11 +109,10 @@ getAllFilesMd(routeAbsolute).forEach((file) =>{
 const validateLinks = (arrLiknsValidate) => {
   const arr = arrLiknsValidate.map((obj) => (axios.get(obj.href))
     .then((url) => ({ status: url.status, message: url.statusText, ...obj }))
-    .catch(() => ({ status: 404, message: 'Esta ruta no existe', ...obj })));
+    .catch(() => ({ status: 404, message: 'FAIL', ...obj })));
     return Promise.all(arr);
 };
 //validateLinks(gettingLinks(fileMD)).then((url) => console.log(url))
-
 
  module.exports = {
   readDirectory,
