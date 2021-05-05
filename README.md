@@ -12,7 +12,7 @@ Para poder implementar esta librería, se realizaron 2 diagramas de flujo para c
 
 ## 2. Instalación
 Se puede instalar la libreríade la siguiente manera:
-npm install md-links-lrc.
+npm install md-links-brl.
 
 ## 3. Modo de Uso 
 * md-links path --validate
